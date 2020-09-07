@@ -1,0 +1,8 @@
+{
+  "domain": "five_lamp",
+  "name": "five_lamp",
+  "documentation": [],
+  "dependencies": [],
+  "codeowners": [],
+  "requirements": ["python-miio>=0.4.5"]
+}
