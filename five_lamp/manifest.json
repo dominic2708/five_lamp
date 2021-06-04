@@ -1,6 +1,7 @@
 {
   "domain": "five_lamp",
   "name": "five_lamp",
+  "version": "1.0",
   "documentation": [],
   "dependencies": [],
   "codeowners": [],
