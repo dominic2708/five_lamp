@@ -1,4 +1,3 @@
-import asyncio
 from functools import partial
 import logging
 import json
@@ -38,8 +37,7 @@ SUCCESS = ['ok']
 
 SCAN_INTERVAL = timedelta(seconds=15)
 
-@asyncio.coroutine
-def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
+async def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
     """Set up the sensor from config."""
     from miio import Device, DeviceException
     if DATA_KEY not in hass.data:
@@ -168,26 +166,24 @@ class FiveLamp(SwitchEntity):
             _LOGGER.error(mask_error, exc)
             return False
 
-    @asyncio.coroutine
-    def async_turn_on(self, **kwargs) -> None:
+    async def async_turn_on(self, **kwargs) -> None:
         data = {
             "siid": 2,
             "piid": 2,
             "value": True,
         }
-        result = yield from self._try_command("Turning the miio device on failed.", self._device.send,'set_properties', [data])
+        result = await self._try_command("Turning the miio device on failed.", self._device.send,'set_properties', [data])
         if result:
             self._state = True
             self._skip_update = True
 
-    @asyncio.coroutine
-    def async_turn_off(self, **kwargs) -> None:
+    async def async_turn_off(self, **kwargs) -> None:
         data = {
             "siid": 2,
             "piid": 2,
             "value": False,
         }
-        result = yield from self._try_command("Turning the miio device off failed.", self._device.send,'set_properties', [data])
+        result = await self._try_command("Turning the miio device off failed.", self._device.send,'set_properties', [data])
         if result:
             self._state = False
             self._skip_update = True
